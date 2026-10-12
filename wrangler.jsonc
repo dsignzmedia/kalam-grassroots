@@ -6,7 +6,8 @@
     "enabled": true
   },
   "routes": [
-    { "pattern": "kalamgrassroots.org", "custom_domain": true }
+    { "pattern": "kalamgrassroots.org", "custom_domain": true },
+    { "pattern": "www.kalamgrassroots.org", "custom_domain": true }
   ],
   "assets": {
     "directory": "."
