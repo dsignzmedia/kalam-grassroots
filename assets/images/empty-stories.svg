@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 420" role="img" aria-label="Illustration of a person climbing a ladder toward a wall of story cards" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M220 40 C300 30 380 80 392 160 C404 235 350 280 372 335 C388 380 330 400 262 396 C190 392 150 372 96 352 C40 331 30 262 62 214 C90 172 60 120 108 84 C146 56 180 44 220 40 Z" fill="#c8f56c"/>
+  <rect x="286" y="118" width="112" height="128" rx="9" fill="#fff" stroke="#111820" stroke-width="3.5"/>
+  <rect x="298" y="130" width="24" height="28" rx="4" fill="#fff" stroke="#111820" stroke-width="2.5"/>
+  <rect x="330" y="130" width="24" height="28" rx="4" fill="#fff" stroke="#111820" stroke-width="2.5"/>
+  <rect x="362" y="130" width="24" height="28" rx="4" fill="#fff" stroke="#111820" stroke-width="2.5"/>
+  <rect x="298" y="166" width="24" height="28" rx="4" fill="#fff" stroke="#111820" stroke-width="2.5"/>
+  <rect x="330" y="166" width="24" height="28" rx="4" fill="#fff" stroke="#111820" stroke-width="2.5"/>
+  <rect x="362" y="166" width="24" height="28" rx="4" fill="#fff" stroke="#111820" stroke-width="2.5"/>
+  <rect x="298" y="202" width="24" height="28" rx="4" fill="#fff" stroke="#111820" stroke-width="2.5"/>
+  <rect x="330" y="202" width="24" height="28" rx="4" fill="#fff" stroke="#111820" stroke-width="2.5"/>
+  <rect x="362" y="202" width="24" height="28" rx="4" fill="#fff" stroke="#111820" stroke-width="2.5" stroke-dasharray="4 4"/>
+  <path d="M140.0 392 L219.1 60" stroke="#111820" stroke-width="5"/>
+  <path d="M184.0 392 L263.1 60" stroke="#111820" stroke-width="5"/>
+  <path d="M145.7 368 H189.7" stroke="#111820" stroke-width="4"/>
+  <path d="M154.3 332 H198.3" stroke="#111820" stroke-width="4"/>
+  <path d="M162.9 296 H206.9" stroke="#111820" stroke-width="4"/>
+  <path d="M171.5 260 H215.5" stroke="#111820" stroke-width="4"/>
+  <path d="M180.1 224 H224.1" stroke="#111820" stroke-width="4"/>
+  <path d="M188.6 188 H232.6" stroke="#111820" stroke-width="4"/>
+  <path d="M197.2 152 H241.2" stroke="#111820" stroke-width="4"/>
+  <path d="M205.8 116 H249.8" stroke="#111820" stroke-width="4"/>
+  <path d="M214.4 80 H258.4" stroke="#111820" stroke-width="4"/>
+  <path d="M214 236 L212 268 L200 296" stroke="#111820" stroke-width="20"/>
+  <path d="M214 236 L212 268 L200 296" stroke="#fff" stroke-width="14"/>
+  <path d="M222 236 L240 252 L206 262" stroke="#111820" stroke-width="20"/>
+  <path d="M222 236 L240 252 L206 262" stroke="#fff" stroke-width="14"/>
+  <ellipse cx="197" cy="300" rx="11" ry="6" fill="#111820" stroke="#111820" stroke-width="2"/>
+  <ellipse cx="203" cy="266" rx="10" ry="5.5" fill="#111820" stroke="#111820" stroke-width="2"/>
+  <path d="M214 180 L192 150 L206 114" stroke="#111820" stroke-width="14"/>
+  <path d="M214 180 L192 150 L206 114" stroke="#fff" stroke-width="8"/>
+  <path d="M241 180 L262 150 L246 114" stroke="#111820" stroke-width="14"/>
+  <path d="M241 180 L262 150 L246 114" stroke="#fff" stroke-width="8"/>
+  <path d="M211 172 Q227 165 243 172 L233 240 Q219 247 205 240 Z" fill="#533afd" stroke="#111820" stroke-width="3.5"/>
+  <circle cx="227" cy="146" r="15" fill="#fff" stroke="#111820" stroke-width="3.5"/>
+  <path d="M212 143 Q214 130 228 130 Q241 130 242 141 Q233 134 224 137 Q217 139 212 143 Z" fill="#111820" stroke="#111820" stroke-width="2"/>
+  <path d="M231 155 Q235 158 239 154" stroke="#111820" stroke-width="2.2"/>
+  <circle cx="234" cy="150" r="1.8" fill="#111820" stroke="none"/>
+  <path d="M338 78H352M345 71V85" stroke="#533afd" stroke-width="3"/>
+  <path d="M58 300H70M64 294V306" stroke="#533afd" stroke-width="3"/>
+  <path d="M91 120H101M96 115V125" stroke="#533afd" stroke-width="3"/>
+</svg>

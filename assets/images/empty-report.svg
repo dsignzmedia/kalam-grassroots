@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 420" role="img" aria-label="Illustration of an annual report cover with empty chart bars and a clock" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M220 40 C300 30 380 80 392 160 C404 235 350 280 372 335 C388 380 330 400 262 396 C190 392 150 372 96 352 C40 331 30 262 62 214 C90 172 60 120 108 84 C146 56 180 44 220 40 Z" fill="#c8f56c"/>
+  <g transform="rotate(4 220 195)">
+    <rect x="130" y="62" width="180" height="262" rx="10" fill="#fff" stroke="#111820" stroke-width="3.5"/>
+    <path d="M150 62 V324" stroke="#111820" stroke-width="3.5"/>
+    <path d="M170 100 H272" stroke="#111820" stroke-width="7"/>
+    <path d="M170 124 H236" stroke="#c9d0da" stroke-width="5"/>
+    <path d="M170 286 H286" stroke="#111820" stroke-width="3"/>
+    <rect x="176" y="240" width="22" height="46" rx="3" stroke="#111820" stroke-width="2.8" stroke-dasharray="5 4"/>
+    <rect x="210" y="210" width="22" height="76" rx="3" stroke="#111820" stroke-width="2.8" stroke-dasharray="5 4"/>
+    <rect x="244" y="176" width="22" height="110" rx="3" stroke="#111820" stroke-width="2.8" stroke-dasharray="5 4"/>
+  </g>
+  <circle cx="326" cy="296" r="44" fill="#fff" stroke="#111820" stroke-width="5"/>
+  <circle cx="326" cy="296" r="3.5" fill="#111820" stroke="none"/>
+  <path d="M326 296 V270 M326 296 L344 306" stroke="#533afd" stroke-width="5"/>
+  <path d="M326.0 261.0 L326.0 257.0" stroke="#111820" stroke-width="2"/>
+  <path d="M343.5 265.7 L345.5 262.2" stroke="#111820" stroke-width="2"/>
+  <path d="M356.3 278.5 L359.8 276.5" stroke="#111820" stroke-width="2"/>
+  <path d="M361.0 296.0 L365.0 296.0" stroke="#111820" stroke-width="2"/>
+  <path d="M356.3 313.5 L359.8 315.5" stroke="#111820" stroke-width="2"/>
+  <path d="M343.5 326.3 L345.5 329.8" stroke="#111820" stroke-width="2"/>
+  <path d="M326.0 331.0 L326.0 335.0" stroke="#111820" stroke-width="2"/>
+  <path d="M308.5 326.3 L306.5 329.8" stroke="#111820" stroke-width="2"/>
+  <path d="M295.7 313.5 L292.2 315.5" stroke="#111820" stroke-width="2"/>
+  <path d="M291.0 296.0 L287.0 296.0" stroke="#111820" stroke-width="2"/>
+  <path d="M295.7 278.5 L292.2 276.5" stroke="#111820" stroke-width="2"/>
+  <path d="M308.5 265.7 L306.5 262.2" stroke="#111820" stroke-width="2"/>
+  <path d="M349 74H363M356 67V81" stroke="#533afd" stroke-width="3"/>
+  <path d="M66 318H78M72 312V324" stroke="#533afd" stroke-width="3"/>
+  <path d="M89 108H99M94 103V113" stroke="#533afd" stroke-width="3"/>
+</svg>
