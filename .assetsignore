@@ -1,0 +1,10 @@
+.assetsignore
+wrangler.jsonc
+package.json
+node_modules
+.wrangler
+.git*
+.DS_Store
+.dev.vars*
+.env*
+deliverables
