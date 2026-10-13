@@ -3640,7 +3640,7 @@ main>section.vr-main{padding-top:36px!important;background:#fff!important}
 .wl-wtl-field i{padding-right:0!important}
 .wl-wtl-field input,body.wl-fit .wl-wtl-field input,.vr-card .wl-wtl-field input{padding-left:0!important}
 
-/* Image logo (assets/images/logo.png) replaces text lockup */
+/* Image logo (assets/images/logo-new.png) replaces text lockup */
 .site-header .logo{display:inline-flex;align-items:center;padding:0;gap:0}
 .site-header .logo::before{content:none;display:none}
 .site-header .logo img{display:block;height:52px;width:auto;max-width:100%}
