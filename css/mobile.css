@@ -126,3 +126,7 @@ main section .wrap>.cta-row{gap:10px}
 .m-rail>.door-photo::before{background:linear-gradient(to bottom,rgba(13,25,34,.04) 0%,rgba(13,25,34,.2) 30%,rgba(13,25,34,.62) 62%,rgba(13,25,34,.92) 100%)}
 .m-rail>.door-card .door-copy strong{font-size:24px}
 .m-rail>.door-card .door-copy small{font-size:14px;line-height:1.5}
+
+/* "Programmes on this track" photo caption: keep it inside the photo's padding, on a darker fade so it reads over the picture */
+.gr-flag-media::after{background:linear-gradient(180deg,rgba(16,33,61,0) 25%,rgba(16,33,61,.78))}
+.gr-flag-media span{left:18px;right:18px;bottom:16px;font-size:14px;line-height:1.35}
