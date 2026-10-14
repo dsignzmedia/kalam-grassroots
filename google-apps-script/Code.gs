@@ -2,6 +2,9 @@
 var WTL_SHEET_ID = '1JMy2TEWa57odJrfr0MWyjKhz7M8UwRcZMO_BzEKOwso'; // a DIFFERENT spreadsheet than the one this script is bound to
 var WTL_TAB_NAME = 'Registrations'; // tab with header row: WTL ID | Name | Mobile | State | Constituency | District
 
+/* Forms that must carry consent = 'Agreed' (the privacy-notice tick box). A row without it is refused. */
+var CONSENT_REQUIRED_FORMS = ['Visit Requests', 'Waitlist Assessment'];
+
 /* GET  <exec>                      -> health check, shows {"ok":true,...}
    GET  <exec>?action=lookupWTL&id= -> old WTL lookup from the Registrations sheet (kept for compatibility) */
 function doGet(e) {
@@ -21,6 +24,9 @@ function doPost(e) {
   var body = {};
   try { body = JSON.parse(e.postData.contents); } catch (err) { return jsonOut({ ok: false, error: 'bad json' }); }
   var formName = String(body.form || e.parameter.form || 'Untitled').replace(/[^a-zA-Z0-9 _-]/g, '').slice(0, 90);
+  if (CONSENT_REQUIRED_FORMS.indexOf(formName) !== -1 && (!body.data || body.data.consent !== 'Agreed')) {
+    return jsonOut({ ok: false, error: 'consent required' });
+  }
   /* one write at a time, so two simultaneous submissions can't clash over the header row */
   var lock = LockService.getScriptLock();
   try {

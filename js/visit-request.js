@@ -88,13 +88,15 @@
     if (!verified) { say('Enter your WTL ID and choose “Find my details” first.', 'err'); input.focus(); return; }
     if (urgent.checked && !why.value.trim()) { why.setCustomValidity('Please tell us why this is urgent.'); why.reportValidity(); why.addEventListener('input', function () { why.setCustomValidity(''); }, { once: true }); return; }
     if (!form.reportValidity()) return;
+    var consent = document.getElementById('vr-consent');
+    if (!consent.checked) { consent.setCustomValidity('Please tick this box to continue.'); consent.reportValidity(); consent.addEventListener('change', function () { consent.setCustomValidity(''); }, { once: true }); return; }
     var submitBtn = form.querySelector('[type="submit"]'), label = submitBtn.textContent; submitBtn.disabled = true; submitBtn.textContent = 'Sending…';
     var done = document.getElementById('vr-done'), txt = document.getElementById('vr-done-text'), email = document.getElementById('vr-email').value;
     var go = function () {
       txt.textContent = (urgent.checked ? 'We have marked this as urgent. ' : '') + 'We will book a slot for you based on availability and reply to ' + email + '.';
       form.hidden = true; document.querySelector('.vr-notice').hidden = true; done.hidden = false; done.focus(); done.scrollIntoView({ behavior: 'smooth', block: 'center' });
     };
-    CFP.collectFormData(form).then(function (data) { data.urgent = urgent.checked ? 'Yes' : 'No'; if (!urgent.checked) data.urgent_reason = ''; return CFP.sendChecked('Visit Requests', data); })
+    CFP.collectFormData(form).then(function (data) { data.urgent = urgent.checked ? 'Yes' : 'No'; data.consent = 'Agreed'; if (!urgent.checked) data.urgent_reason = ''; return CFP.sendChecked('Visit Requests', data); })
       .then(go)
       .catch(function () { submitBtn.disabled = false; submitBtn.textContent = label; say('We could not send your request. Please try again.', 'err'); });
   });

@@ -94,9 +94,11 @@
   form.addEventListener('submit', function (event) {
     event.preventDefault();
     if (!form.reportValidity()) return;
+    var consent = document.getElementById('wl-consent');
+    if (!consent.checked) { consent.setCustomValidity('Please tick this box to continue.'); consent.reportValidity(); consent.addEventListener('change', function () { consent.setCustomValidity(''); }, { once: true }); return; }
     var btn = form.querySelector('[data-wtl-submit]'), label = btn ? btn.textContent : '';
     if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
-    CFP.collectFormData(form).then(function (data) { return CFP.sendChecked('Waitlist Assessment', data); })
+    CFP.collectFormData(form).then(function (data) { data.consent = 'Agreed'; return CFP.sendChecked('Waitlist Assessment', data); })
       .then(function () {
         var firstName = (document.getElementById('wl-name').value || '').trim().split(/\s+/)[0];
         document.getElementById('wl-complete-name').textContent = firstName ? 'Thank you, ' + firstName : 'Thank you';
