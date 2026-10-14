@@ -1,8 +1,14 @@
-/* Serves the static site and one server-side route:
+/* Serves the static site and one server-side route (currently redirecting everything, see REDIRECT_ALL_TO):
    POST /api/verify-memberid  { member_id: "<digits after WTL-26->" }
    It proxies to the Catalyst user_add_api /verify-memberid endpoint (same one the
    We The Leaders site uses). The API key can touch real member records, so it only
    ever lives here, as the Cloudflare secret CATALYST_USER_API_KEY — never in browser JS. */
+/* SITE MOVED: while this is set, EVERY request to kalamgrassroots.org / www.kalamgrassroots.org (any page, file or API
+   call) is redirected to this address. Set it to '' to serve this site (and the API route below) again.
+   302 = temporary, so browsers do not remember it forever; switch to 301 once the move is final. */
+const REDIRECT_ALL_TO = 'https://www.wetheleader.org/kalam/';
+const REDIRECT_STATUS = 302;
+
 const CATALYST_USER_API_BASE = 'https://annaapp-60073936101.catalystserverless.in/server/user_add_api';
 
 function json(obj, status) {
@@ -34,6 +40,9 @@ async function verifyMemberId(request, env) {
 export default {
   async fetch(request, env) {
     var url = new URL(request.url);
+    if (REDIRECT_ALL_TO) {
+      return new Response(null, { status: REDIRECT_STATUS, headers: { Location: REDIRECT_ALL_TO, 'Cache-Control': 'no-store' } });
+    }
     if (url.pathname === '/api/verify-memberid') {
       if (request.method !== 'POST') return json({ success: false, message: 'Method not allowed' }, 405);
       return verifyMemberId(request, env);
