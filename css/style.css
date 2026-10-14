@@ -3594,3 +3594,17 @@ main>section.vr-main{padding-top:36px!important;background:#fff!important}
 .pf-card input[type=date],.pf-card input[type=number]{width:100%;min-height:48px;padding:12px 14px;color:var(--ink);background:var(--canvas);border:1px solid var(--hairline-input)!important;border-radius:10px;font:300 14px/1.4 var(--font);transition:border-color .15s ease,box-shadow .15s ease}
 .pf-card input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.6}
 .pf-card input[type=date]::-webkit-calendar-picker-indicator:hover{opacity:1}
+
+/* Journey programme cards (programmes.html)
+   1) The connector dot sits half outside the card's top edge. The card had overflow:hidden (only there to clip the
+      "shine" effect), which cut the dot in half. The card no longer clips; the shine is now a gradient that lives
+      inside the card's own box (same look, rounded to the card), so nothing is cut off.
+   2) Give the "4 weeks · 64 hours" line room: a gap under the Classroom pill and a little more before the heading. */
+.jr-pcard{overflow:visible}
+.jr-pcard::after{inset:0;left:0;width:auto;border-radius:inherit;transform:none;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.2) 50%,transparent 58%) no-repeat;background-size:250% 100%;background-position:130% 0;opacity:0;animation:jr-card-sheen-x 6.4s ease-in-out infinite}
+@keyframes jr-card-sheen-x{0%,68%{background-position:130% 0;opacity:0}73%{opacity:1}88%{background-position:-30% 0;opacity:.75}89%,100%{background-position:-30% 0;opacity:0}}
+.jr-pcard .akf-format{margin-bottom:4px}
+.jr-pcard>div{padding-top:20px}
+.jr-pcard div>p{margin:0 0 12px}
+.jr-pcard h2{margin-bottom:18px}
+@media(prefers-reduced-motion:reduce){.jr-pcard::after{animation:none}}

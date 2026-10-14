@@ -99,3 +99,27 @@ main section .wrap>.cta-row{gap:10px}
 /* institute quick facts: 2 x 2 */
 .ins-glance-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px 14px!important}
 .ins-glance-item{padding:14px 0!important}.ins-glance-item strong,.ins-glance-item h3{font-size:17px!important}
+
+/* Home "Abdul Kalam Fellow journey" rail: the little → connectors between the cards are decoration only on desktop.
+   Inside the swipe rail the rail rule would stretch each one into a 300px-wide oval, so they are hidden there
+   (the cards stay swipeable, and the dots below show the position). */
+.m-rail>.home-akf-arrow{display:none!important}
+
+/* Picture tiles inside a swipe rail: the rail rule sets min-height:0 on every slide, which collapsed empty
+   image tiles to 0px high (blank slides). Give them back a real height. */
+.m-rail>.site-image{min-height:170px!important}
+.m-rail>.site-image.tall{min-height:220px!important}
+
+/* Home journey outcome strip ("Orientation → Capability → Practice → Public impact"): show all four steps
+   wrapped on phones instead of a clipped sideways-scrolling pill. */
+@media(max-width:720px){
+  .home-akf-outcome{flex-wrap:wrap!important;justify-content:center!important;overflow:visible!important;white-space:normal!important;row-gap:8px!important}
+}
+
+/* Home "Four doors" photo cards inside the swipe rail: the rail rule sets min-height:0, which shrank them to ~215px
+   so the title and text sat on top of the people in the photo. Restore a real card height, keep the number at the
+   top and the text at the bottom, and darken the lower part of the photo so the white text stays readable. */
+.m-rail>.door-card{min-height:360px!important;padding:24px!important}
+.m-rail>.door-photo::before{background:linear-gradient(to bottom,rgba(13,25,34,.04) 0%,rgba(13,25,34,.2) 30%,rgba(13,25,34,.62) 62%,rgba(13,25,34,.92) 100%)}
+.m-rail>.door-card .door-copy strong{font-size:24px}
+.m-rail>.door-card .door-copy small{font-size:14px;line-height:1.5}
