@@ -3647,3 +3647,6 @@ main>section.vr-main{padding-top:36px!important;background:#fff!important}
   .bridge-start p strong{font-size:min(clamp(38px,3.6vw,52px),22cqi)}
 }
 @media(max-width:1000px){.bridge-crossing{margin-top:36px}}
+
+/* Language switcher hidden (see CFP_SHOW_LANG_SWITCHER in js/navigation.js). Hiding it in CSS means it never flashes on load. */
+html:not(.lang-on) .lang-toggle,html:not(.lang-on) .lang-wrap{display:none!important}

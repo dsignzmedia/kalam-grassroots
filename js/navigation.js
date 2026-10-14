@@ -1,8 +1,15 @@
+/* Site switches. Set to true to show the item again.
+   - CFP_SHOW_LANG_SWITCHER: the "தமிழ் / EN" language switcher in the header. While false the site always shows English.
+   - CFP_SHOW_LAUNCH_EVENT_LINK: the "View launch event →" button in the top announcement bar. */
+window.CFP_SHOW_LANG_SWITCHER = false;
+window.CFP_SHOW_LAUNCH_EVENT_LINK = false;
+
 (function () {
   var mobileMenu = window.matchMedia('(max-width: 1100px)');
   var siteBase = (document.currentScript && document.currentScript.src ? document.currentScript.src : '').replace(/js\/navigation\.js.*$/, '');
 
   document.querySelectorAll('.utility-note').forEach(function (note) {
+    if (!window.CFP_SHOW_LAUNCH_EVENT_LINK) return;
     if (note.querySelector('.utility-event-link')) return;
     var link = document.createElement('a');
     link.className = 'utility-event-link';
@@ -136,6 +143,9 @@
 
 /* Language switcher: English / தமிழ். Choice is remembered on this device; Tamil strings live in js/i18n-ta.js. */
 (function () {
+  /* switcher hidden: stay in English (a Tamil choice saved on this device earlier is ignored) and build nothing */
+  if (!window.CFP_SHOW_LANG_SWITCHER) return;
+  document.documentElement.classList.add('lang-on');
   var base = (document.currentScript && document.currentScript.src ? document.currentScript.src : '').replace(/js\/navigation\.js.*$/, '');
   var KEY = 'cfp-lang', SKIP = /^(SCRIPT|STYLE|TEXTAREA|CODE|PRE)$/;
   var stored = null; try { stored = localStorage.getItem(KEY); } catch (e) {}
