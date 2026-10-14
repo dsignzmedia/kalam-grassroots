@@ -3636,3 +3636,14 @@ main>section.vr-main{padding-top:36px!important;background:#fff!important}
    Same spacing under the cards as before on desktop. */
 .wj-community-image{margin-top:24px}
 @media(max-width:720px){.wj-community-image{min-height:240px;margin-top:16px}}
+
+/* "Where we come from" card (home bridge section)
+   1) The live count is now 8 characters ("20,84,965"), wider than the old "57,218". In the 3-column desktop layout the
+      side cards are only ~210-245px wide, so the big number spilled out of its box. Size it from the card's own width
+      (container query units) so it always fits, never larger than before.
+   2) When the cards stack (tablet / phone), leave room above "The bridge" box instead of letting it sit on the card. */
+@supports (container-type:inline-size){
+  .bridge-start{container-type:inline-size}
+  .bridge-start p strong{font-size:min(clamp(38px,3.6vw,52px),22cqi)}
+}
+@media(max-width:1000px){.bridge-crossing{margin-top:36px}}
