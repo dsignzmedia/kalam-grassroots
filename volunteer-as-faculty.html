@@ -216,7 +216,9 @@
     var input=box.querySelector('input[type=file]'),name=box.querySelector('[data-file-name]'),err=box.querySelector('.pf-file-error');
     input.addEventListener('change',function(){
       var f=input.files[0];err.hidden=true;input.setCustomValidity('');
-      if(f&&f.size>MAX){err.textContent='That file is larger than 5 MB. Please choose a smaller file.';err.hidden=false;input.setCustomValidity('File too large');input.value='';f=null;}
+      /* a rejected file is simply cleared: no lingering validity error, so an optional box never blocks the form */
+      if(f&&!/\.(pdf|docx?)$/i.test(f.name)){err.textContent='Please choose a PDF, DOC or DOCX file.';err.hidden=false;input.value='';f=null;}
+      else if(f&&f.size>MAX){err.textContent='That file is larger than 5 MB. Please choose a smaller file.';err.hidden=false;input.value='';f=null;}
       box.classList.toggle('has-file',!!f);name.textContent=f?f.name:'Choose a file';
     });
   });
