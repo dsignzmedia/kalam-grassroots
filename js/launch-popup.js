@@ -12,7 +12,7 @@
     return Math.ceil((t - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 86400000);
   }
   function build() {
-    var d = daysToGo(), left = d === 0 ? 'Today' : d === 1 ? '1 day to go' : d + ' days to go';
+    var left = '15-10-2026';
     var dlg = document.createElement('dialog');
     dlg.className = 'launch-pop'; dlg.setAttribute('aria-labelledby', 'launch-pop-title');
     dlg.innerHTML = '<div class="lp-card">' +
@@ -21,7 +21,7 @@
         '<p class="lp-eyebrow"><i></i>Launch event · ' + left + '</p>' +
         '<h2 id="launch-pop-title">Be there when the Centre begins.</h2>' +
         '<p class="lp-text">We launch on <strong>October 15</strong>, the birthday of Dr. A.P.J. Abdul Kalam — and members of his family will be joining us for the launch.</p>' +
-        '<p class="lp-meta">Venue and time announced soon · Free to attend</p>' +
+        '<p class="lp-meta">Venue and time: NH 47 Bypass to Kulathur Road, Neelambur, Coimbatore and 10:32AM · Free to attend</p>' +
         '<div class="lp-actions"><a class="btn" href="' + base + 'events/centre-for-polity-launch.html">See launch details →</a><button type="button" class="lp-later">Maybe later</button></div>' +
       '</div></div>' +
       '<button type="button" class="lp-close" aria-label="Close">✕</button>';
