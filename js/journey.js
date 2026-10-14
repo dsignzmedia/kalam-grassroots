@@ -9,16 +9,6 @@
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var nodeLen = [], samples = [], L = 0, STEP = 5, ticking = false;
 
-  /* Reuse the exact, detailed Kalam portrait at the end of the journey in the loader. */
-  (function prepareLoaderPortrait() {
-    var loaderPortrait = document.querySelector('.jr-loader-portrait');
-    if (!loaderPortrait || !kalam) return;
-    var strokes;
-    try { strokes = JSON.parse(kalam.getAttribute('data-strokes')); } catch (e) { return; }
-    var d = strokes.join('');
-    [].slice.call(loaderPortrait.querySelectorAll('path')).forEach(function (path) { path.setAttribute('d', d); });
-  })();
-
   /* ---- one-line illustrations, drawn in a 120 × 120 box ---- */
   function circle(cx, cy, r, a0, n, dir) {
     var out = [];
@@ -181,34 +171,11 @@
   }
 
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
-  var rt; function later(ms) { clearTimeout(rt); rt = setTimeout(function () { build(); maybeRelease(); }, ms); }
-
-  /* loader: stays until the page, fonts and the line are all ready */
-  var html = document.documentElement, loader = document.querySelector('.page-loader'), t0 = performance.now();
-  var loaded = document.readyState === 'complete', fontsOk = !(document.fonts && document.fonts.ready), released = false;
-  function release() {
-    if (released) return; released = true;
-    if (loader) { loader.style.setProperty('--p', 1); var pc = loader.querySelector('.pl-pct'); if (pc) pc.textContent = '100'; loader.classList.add('is-leaving'); }
-    setTimeout(function () { html.classList.remove('jr-loading'); build(); }, loader ? 800 : 0);
-  }
-  function maybeRelease() {
-    if (released || !html.classList.contains('jr-loading')) return;
-    if (loaded && fontsOk && samples.length) setTimeout(release, Math.max(0, 1900 - (performance.now() - t0)));
-  }
-  if (loader && html.classList.contains('jr-loading')) {
-    var pc = loader.querySelector('.pl-pct');
-    (function tick() {
-      if (released) return;
-      var p = Math.min(.92, (performance.now() - t0) / 1400);
-      loader.style.setProperty('--p', p.toFixed(3)); if (pc) pc.textContent = Math.round(p * 100);
-      requestAnimationFrame(tick);
-    })();
-    setTimeout(release, 6000);                                   /* never trap the visitor */
-  }
+  var rt; function later(ms) { clearTimeout(rt); rt = setTimeout(build, ms); }
 
   build();
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', function () { later(150); });
-  window.addEventListener('load', function () { loaded = true; later(0); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fontsOk = true; later(0); });
+  window.addEventListener('load', function () { later(0); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { later(0); });
 })();

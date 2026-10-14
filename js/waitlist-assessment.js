@@ -96,6 +96,9 @@
     if (!form.reportValidity()) return;
     var firstName = (document.getElementById('wl-name').value || '').trim().split(/\s+/)[0];
     document.getElementById('wl-complete-name').textContent = firstName ? 'Thank you, ' + firstName : 'Thank you';
+    if (window.CFP && CFP.collectFormData) {
+      CFP.collectFormData(form).then(function (data) { CFP.send('Waitlist Assessment', data); }).catch(function () {});
+    }
     showScreen('complete');
   });
 

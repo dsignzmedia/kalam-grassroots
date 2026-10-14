@@ -43,75 +43,19 @@
       <div class="section-label">Resources · வளங்கள்</div>
       <h1 id="intro-heading">Resources</h1>
       <p class="subhead">Everything here is free to read, with no form to fill. This is a movement position, not a growth decision.</p>
-      <div class="lib-hero-row">
-        <div class="search-lg"><label class="gloss-sr" for="lib-search">Search resources</label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" id="lib-search" name="q" placeholder="Search resources…" autocomplete="off"></div>
-      </div>
     </div>
   </section>
 
-  <section class="lib-filters" aria-label="Filter resources">
-    <div class="wrap">
-      <form class="lib-filter-bar" action="#" method="get" onsubmit="return false">
-        <div class="lib-filter"><label for="f-track">Track</label><select id="f-track" name="f-track"><option>All tracks</option><option>Get Ready</option><option>Get Into the Field</option><option>Prepare to Contest</option><option>Lead Others</option></select></div>
-        <div class="lib-filter"><label for="f-phase">Election-cycle phase</label><select id="f-phase" name="f-phase"><option>All phases</option><option>01 Understand the system</option><option>02 Know your ward</option><option>03 Build a team</option><option>04 Choose your issue</option><option>05 Money &amp; compliance</option><option>06 Nomination &amp; paperwork</option><option>07 Ground campaign</option><option>08 Communication &amp; media</option><option>09 Polling day</option><option>10 After the result</option></select></div>
-        <div class="lib-filter"><label for="f-format">Format</label><select id="f-format" name="f-format"><option>All formats</option><option>Primer</option><option>Guide</option><option>Worksheet</option><option>Template</option><option>Checklist</option><option>Video</option><option>Audio</option><option>Case study</option><option>Legal explainer</option><option>Toolkit</option></select></div>
-        <div class="lib-filter"><label for="f-theme">Theme</label><select id="f-theme" name="f-theme"><option>All themes</option><option>Women</option><option>Youth</option><option>Local body</option><option>Assembly</option><option>Organising</option><option>Data &amp; digital</option><option>Communication</option><option>Law &amp; compliance</option><option>Ethics &amp; governance</option></select></div>
-        <button class="btn btn-ghost lib-filter-clear" type="reset">Clear all</button>
-      </form>
-      <p class="lib-filter-meta">12 resources · 6 shown per page</p>
-    </div>
-  </section>
-
-  <!-- ============ RESULTS GRID — ResourceCard ============ -->
+  <!-- ============ RESULTS — empty state before resources ship ============ -->
   <section class="library-results-section" aria-labelledby="results-heading">
     <div class="wrap">
       <h2 id="results-heading" class="section-label">All resources</h2>
-      <div class="library-card-grid">
-
-        <a class="resource-card library-card" href="library/panchayat-basics-primer.html" data-track="Get Ready" data-phase="01" data-format="Primer" data-theme="Local body">
-          <span class="library-card-image library-image-government" aria-hidden="true"></span>
-          <span class="library-card-top">Primer &nbsp;·&nbsp; Phase 01</span>
-          <span class="library-card-copy"><strong>How a panchayat actually works</strong><small>Understand the roles, budgets and decisions that shape village government.</small><em>8 min read · Tamil &amp; English</em></span>
-        </a>
-
-        <a class="resource-card library-card" href="library/toolkits/ward-organising-toolkit.html" data-track="Prepare to Contest" data-phase="06" data-format="Checklist" data-theme="Law &amp; compliance">
-          <span class="library-card-image library-image-checklist" aria-hidden="true"></span>
-          <span class="library-card-top">Checklist &nbsp;·&nbsp; Phase 06</span>
-          <span class="library-card-copy"><strong>Nomination papers: a field checklist</strong><small>Track documents, deadlines and verification steps before filing.</small><em>5 min read · Tamil</em></span>
-        </a>
-
-        <a class="resource-card library-card" href="library.html" data-track="Get Into the Field" data-phase="07" data-format="Video" data-theme="Organising">
-          <span class="library-card-image library-image-ground" aria-hidden="true"></span>
-          <span class="library-card-top">Video &nbsp;·&nbsp; Phase 07</span>
-          <span class="library-card-copy"><strong>Plan a week on the ground</strong><small>Turn voter-contact goals into a realistic daily field plan.</small><em>6 min watch · Tamil</em></span>
-        </a>
-
-        <a class="resource-card library-card" href="legal/dpdp.html" data-track="Prepare to Contest" data-phase="05" data-format="Legal explainer" data-theme="Law &amp; compliance">
-          <span class="library-card-image library-image-compliance" aria-hidden="true"></span>
-          <span class="library-card-top">Legal explainer &nbsp;·&nbsp; Phase 05</span>
-          <span class="library-card-copy"><strong>Campaign money and compliance</strong><small>A plain-language introduction to records, permissions and responsible spending.</small><em>15 min read · English</em></span>
-        </a>
-
-        <a class="resource-card library-card" href="library/toolkits/ward-organising-toolkit.html" data-track="Get Into the Field" data-phase="03" data-format="Template" data-theme="Local body">
-          <span class="library-card-image library-image-mapping" aria-hidden="true"></span>
-          <span class="library-card-top">Template &nbsp;·&nbsp; Phase 03</span>
-          <span class="library-card-copy"><strong>Ward mapping worksheet</strong><small>Map people, institutions and issues before planning local action.</small><em>Downloadable · Tamil &amp; English</em></span>
-        </a>
-
-        <a class="resource-card library-card" href="impact/case-studies/coimbatore-south-ward-12.html" data-track="Lead Others" data-phase="08" data-format="Case study" data-theme="Ethics &amp; governance">
-          <span class="library-card-image library-image-action" aria-hidden="true"></span>
-          <span class="library-card-top">Case study &nbsp;·&nbsp; Phase 08</span>
-          <span class="library-card-copy"><strong>From complaint to collective action</strong><small>How residents documented an issue, built support and worked with public officials.</small><em>10 min read · English</em></span>
-        </a>
-
+      <div class="empty-state">
+        <span class="empty-state-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></span>
+        <h3>Resources are on the way.</h3>
+        <p>We are preparing the first primers, guides and worksheets ahead of the Centre's launch on October 15. Join the waiting list to be notified when they are published.</p>
+        <a class="btn" href="waiting-list.html">Join the waiting list</a>
       </div>
-      <p class="lib-empty" role="status" hidden>No resources match these filters. Try clearing one or more filters.</p>
-      <nav class="pagination" aria-label="Resources results pagination">
-        <span class="pagination-link" aria-disabled="true">← Previous</span>
-        <a class="pagination-link" href="library.html?page=1#results-heading" aria-current="page" aria-label="Page 1, current page">1</a>
-        <a class="pagination-link" href="library.html?page=2#results-heading" aria-label="Go to page 2">2</a>
-        <a class="pagination-link" href="library.html?page=2#results-heading" aria-label="Go to next page">Next →</a>
-      </nav>
     </div>
   </section>
 
@@ -232,7 +176,6 @@
 
 <script src="js/navigation.js?v=20261140"></script>
 <script src="js/launch-popup.js?v=20260975"></script>
-<script src="js/library.js?v=20261133"></script>
 <script src="js/mobile.js?v=20261133" defer></script>
 </body>
 </html>

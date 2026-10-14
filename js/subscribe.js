@@ -10,6 +10,7 @@
     e.preventDefault();
     var v = input.value.trim();
     if (!ok(v)) { err.hidden = false; field.classList.add('is-invalid'); input.setAttribute('aria-invalid', 'true'); input.focus(); return; }
+    CFP.send('Newsletter', { email: v });
     document.getElementById('sub-done-email').textContent = v;
     form.hidden = true; done.hidden = false; done.focus();
   });

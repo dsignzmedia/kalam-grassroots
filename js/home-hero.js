@@ -29,28 +29,7 @@
     });
   })(h1);
   hero.style.setProperty('--hh-total', n);
-  var loader = document.querySelector('.page-loader');
-  function ready() { requestAnimationFrame(function () { root.classList.add('hh-ready'); }); }
-  if (loader && root.classList.contains('hh-loading')) {
-    var pct = loader.querySelector('.pl-pct'), t0 = performance.now(), MIN = 1700, loaded = document.readyState === 'complete', done = false;
-    window.addEventListener('load', function () { loaded = true; });
-    var finish = function () {
-      if (done) return; done = true;
-      loader.style.setProperty('--p', 1); pct.textContent = '100';
-      loader.classList.add('is-leaving');
-      setTimeout(ready, 420);
-      setTimeout(function () {
-        root.classList.remove('hh-loading');
-        try { sessionStorage.setItem('cfp-intro', '1'); } catch (e) {}
-      }, 1200);
-    };
-    (function tick() {
-      var el = performance.now() - t0, p = Math.min(1, el / MIN);
-      if (!loaded) p = Math.min(p, 0.9);
-      loader.style.setProperty('--p', p.toFixed(3)); pct.textContent = Math.round(p * 100);
-      if ((p >= 1 && loaded) || el > 4500) finish(); else requestAnimationFrame(tick);
-    })();
-  } else ready();
+  requestAnimationFrame(function () { root.classList.add('hh-ready'); });
 
   /* Rotating photo inside the pill */
   var imgs = [].slice.call(hero.querySelectorAll('.hero-photo img'));
