@@ -3594,3 +3594,8 @@ main>section.vr-main{padding-top:36px!important;background:#fff!important}
 .site-header .logo::before{content:none;display:none}
 .site-header .logo img{display:block;height:52px;width:auto;max-width:100%}
 @media(max-width:480px){.site-header .logo img{height:42px}}
+
+/* Request-a-visit: the date and number boxes use the same look as the other fields (text / select / textarea) */
+.pf-card input[type=date],.pf-card input[type=number]{width:100%;min-height:48px;padding:12px 14px;color:var(--ink);background:var(--canvas);border:1px solid var(--hairline-input)!important;border-radius:10px;font:300 14px/1.4 var(--font);transition:border-color .15s ease,box-shadow .15s ease}
+.pf-card input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.6}
+.pf-card input[type=date]::-webkit-calendar-picker-indicator:hover{opacity:1}
