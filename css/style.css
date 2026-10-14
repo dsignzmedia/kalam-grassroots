@@ -113,22 +113,18 @@ p{margin:0 0 16px}
 .door-card:nth-child(2):hover{transform:rotate(1deg) translateY(10px)}
 .door-card:nth-child(3):hover{transform:rotate(-1deg) translateY(-14px)}
 .door-card:nth-child(4):hover{transform:rotate(1deg) translateY(12px)}
-.door-solid{border:1px solid rgba(17,24,32,.06)}
-.door-blue{background:#d7f3ff}
-.door-lime{background:#e4ffa7}
 .door-photo{color:#fff;background-position:center;background-size:cover}
-.door-photo::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,25,34,.04) 25%,rgba(13,25,34,.86) 100%)}
-.door-field{background-image:url('../assets/images/field-organising.jpg')}
-.door-lead{background-image:url('../assets/images/mentoring-circle.jpg')}
-.door-number,.door-symbol,.door-copy,.door-link{position:relative;z-index:1}
-.door-number{font-size:48px;font-weight:600;line-height:1;font-feature-settings:"tnum" 1;letter-spacing:-2px}
-.door-symbol{width:120px;height:120px;display:flex;align-items:center;justify-content:center;margin:auto;color:rgba(17,24,32,.12);font-size:86px;font-weight:300}
-.door-copy{display:block;margin-top:auto}
+.door-photo::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,25,34,.08) 25%,rgba(13,25,34,.88) 100%)}
+.door-ready{background-image:url('../assets/images/Get ready.png')}
+.door-field{background-image:url('../assets/images/Get into the field.png')}
+.door-contest{background-image:url('../assets/images/Prepare to Contest.png')}
+.door-lead{background-image:url('../assets/images/Lead Others.png')}
+.door-number,.door-copy,.door-link{position:relative;z-index:1}
+.door-number{margin-left:auto;color:#fff;font-size:48px;font-weight:600;line-height:1;font-feature-settings:"tnum" 1;letter-spacing:-2px}
+.door-copy{display:block;margin-top:auto;color:#fff}
 .door-copy strong{display:block;margin-bottom:9px;font-size:23px;font-weight:600;line-height:1.05;letter-spacing:-.5px}
 .door-copy small{display:block;font-size:13px;font-weight:300;line-height:1.45}
-.door-link{margin-top:20px;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
-.door-photo .door-number{margin-left:auto;color:#fff}
-.door-photo .door-copy,.door-photo .door-link{color:#fff}
+.door-link{margin-top:20px;color:#fff;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
 
 /* Editorial imagery */
 .site-image{position:relative;min-height:180px;overflow:hidden;background:var(--canvas-soft);border-radius:var(--radius-lg);box-shadow:var(--shadow-1)}
@@ -229,8 +225,8 @@ main>section.toolkits-hero::after{display:block;inset:0;height:auto;background:l
 .toolkit-card-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:auto;padding-top:12px}
 .toolkit-card-bottom small{color:var(--muted);font-size:11px}
 .toolkit-card-bottom .btn{min-height:36px;padding:8px 14px;font-size:12px}
-.toolkit-request-card{position:sticky;top:116px;max-width:480px;margin:32px auto 0;padding:28px;background:#f4f3ff;border:1px solid #deddf5;border-radius:18px;box-shadow:0 14px 32px rgba(42,42,85,.1)}
-.toolkits-directory-layout .toolkit-request-card{max-width:none;margin:0}
+.toolkit-request-card{max-width:480px;margin:32px auto 0;padding:28px;background:#f4f3ff;border:1px solid #deddf5;border-radius:18px;box-shadow:0 14px 32px rgba(42,42,85,.1)}
+.toolkits-directory-layout .toolkit-request-card{position:sticky;top:116px;max-width:none;margin:0}
 .toolkit-request-card .section-label{margin-bottom:10px}
 .toolkit-request-card h2{margin:0;color:#111820;font-size:29px;font-weight:500;letter-spacing:-1px}
 .toolkit-request-card>p:not(.section-label){margin:12px 0 22px;color:var(--ink-secondary);font-size:13px;line-height:1.55}
@@ -3080,7 +3076,6 @@ body.wl-fit .wl-lock input:hover,body.wl-fit .wl-lock input:focus{border-color:v
 .persona-resource-card:hover strong{letter-spacing:.03em}
 .persona-resource-card:focus-visible{outline:3px solid #533afd;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.persona-resource-card,.persona-resource-card::after,.persona-resource-card strong{transition:none}.persona-resource-card:hover{transform:none}}
-.door-photo:hover{color:#fff}
 
 /* ======================================================================
    Get Ready — a light, editorial page
