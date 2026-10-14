@@ -4,10 +4,6 @@
    Who has access: Anyone). Paste the resulting /exec URL below. */
 window.CFP_SHEET_API = 'https://script.google.com/macros/s/AKfycbzPkcXtPdoPWmJsvFhyx68qwuCLPT-xKkpUtbb8RlkhZRuZqg_F_Bw9z2DOVBAWwsnBsQ/exec';
 
-/* Used by js/waitlist-wtl.js and js/visit-request.js for the WTL ID lookup.
-   Set to '<exec url>?action=lookupWTL&id=' once the Apps Script is deployed. */
+/* WTL ID check: js/waitlist-wtl.js and js/visit-request.js call POST /api/verify-memberid (worker.js).
+   Leave CFP_WTL_API empty to use that; set it only to point at a different endpoint. */
 window.CFP_WTL_API = '';
-
-/* Used by js/visit-request.js to submit visit requests.
-   Set to '<exec url>?form=Visit%20Requests' once the Apps Script is deployed. */
-window.CFP_VISIT_API = '';

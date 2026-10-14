@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "kalam-grassroots",
+  "main": "worker.js",
   "compatibility_date": "2026-10-12",
   "observability": {
     "enabled": true
@@ -10,7 +11,8 @@
     { "pattern": "www.kalamgrassroots.org", "custom_domain": true }
   ],
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "binding": "ASSETS"
   },
   "compatibility_flags": [
     "nodejs_compat"

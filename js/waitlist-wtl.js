@@ -1,7 +1,4 @@
-/* Waiting list — WTL ID first. Enter the ID, we fetch the registered details and lock them.
-   HOW TO CONNECT THE REAL SERVICE: set window.CFP_WTL_API = 'https://…/wtl/' before this file loads.
-   It is called as GET <api><ID> and should return JSON { name, mobile, state, constituency, district } or 404.
-   Until then, the three DEMO records below are used so the flow can be tried. */
+/* Waiting list — WTL ID first. Enter the ID, we check it through POST /api/verify-memberid (worker.js → Catalyst) and lock the returned details. */
 (function () {
   'use strict';
   var box = document.querySelector('[data-wtl]');
@@ -11,22 +8,30 @@
   var found = box.querySelector('[data-wtl-found]'), after = form.querySelector('[data-wtl-after]'), submit = form.querySelector('[data-wtl-submit]');
   var change = box.querySelector('[data-wtl-change]'), realMobile = document.getElementById('wl-mobile-real');
   var F = { name: 'wl-name', mobile: 'wl-mobile', state: 'wl-state', constituency: 'wl-constituency', district: 'wl-district' };
-  var verified = false, busy = false, api = window.CFP_WTL_API || '';
+  var verified = false, busy = false, api = window.CFP_WTL_API || '/api/verify-memberid';
 
-  var DEMO = {
-    'WTL-26-100234': { name: 'Anitha Selvaraj', mobile: '9894012345', state: 'Tamil Nadu', constituency: 'Sulur', district: 'Coimbatore' },
-    'WTL-26-100567': { name: 'Murugan Palanisamy', mobile: '9791056789', state: 'Tamil Nadu', constituency: 'Avinashi', district: 'Tiruppur' },
-    'WTL-26-100890': { name: 'Fathima Begum', mobile: '9600078901', state: 'Tamil Nadu', constituency: 'Coimbatore South', district: 'Coimbatore' }
-  };
 
   var PREFIX = 'WTL-26-';
   /* the field holds only the part after WTL-26-; a pasted full ID is trimmed to match */
-  function norm(v) { return String(v || '').toUpperCase().replace(/\s+/g, '').replace(/^WTL-?(26)?-?/, '').replace(/[^A-Z0-9]/g, ''); }
+  function norm(v) { return String(v || '').toUpperCase().replace(/\s+/g, '').replace(/^WTL-?(26)?-?/, '').replace(/\D/g, ''); }
   function mask(m) { var d = String(m).replace(/\D/g, '').slice(-10); return d ? '+91 ' + d.slice(0, 2) + '••• ••' + d.slice(-3) : ''; }   /* never show the whole number on screen */
   function say(text, kind) { msg.textContent = text || ''; msg.className = 'wl-wtl-msg' + (kind ? ' is-' + kind : ''); }
+  /* Real check: POST /api/verify-memberid (worker.js → Catalyst), same as the We The Leaders site.
+     Resolves to { name, mobile, state, constituency, district } or null when the ID is unknown. */
   function lookup(id) {
-    if (api) return fetch(api + encodeURIComponent(id), { headers: { Accept: 'application/json' } }).then(function (r) { return r.ok ? r.json() : null; });
-    return new Promise(function (res) { setTimeout(function () { res(DEMO[id] || null); }, 650); });
+    return fetch(api, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ member_id: id.replace(/\D/g, '') }) })
+      .then(function (r) { return r.json().catch(function () { return null; }).then(function (d) { if (r.status >= 500 || !d) throw new Error('service'); return d; }); })
+      .then(function (d) {
+        if (!d.success) return null;
+        var m = d.data || d;
+        return {
+          name: d.display_name || m.display_name || m.name || '',
+          mobile: m.mobile || m.phone || '',
+          state: m.state || m.state_name || '',
+          constituency: m.constituency || m.constituency_name || '',
+          district: m.district || m.district_name || ''
+        };
+      });
   }
   function setVerified(rec) {
     verified = true; document.getElementById('wl-wtl-full').value = PREFIX + norm(input.value);
@@ -47,7 +52,7 @@
   function find() {
     if (busy || verified) return;
     var suffix = norm(input.value); input.value = suffix; var id = PREFIX + suffix;
-    if (!/^[A-Z0-9]{4,16}$/.test(suffix)) { say('Please enter the rest of your WTL ID, for example 100234.', 'err'); input.focus(); return; }
+    if (!/^\d{4,12}$/.test(suffix)) { say('Please enter the rest of your WTL ID, for example 100234.', 'err'); input.focus(); return; }
     busy = true; btn.disabled = true; btn.textContent = 'Finding…'; say('', '');
     lookup(id).then(function (rec) {
       if (rec) setVerified(rec); else { say('We couldn’t find that WTL ID. Check it and try again, or write to hello@centreforpolity.org.', 'err'); input.focus(); }
@@ -59,5 +64,4 @@
   input.addEventListener('input', function () { if (msg.classList.contains('is-err')) say('', ''); });
   change.addEventListener('click', reset);
   form.addEventListener('submit', function (e) { if (!verified) { e.preventDefault(); e.stopImmediatePropagation(); say('Enter your WTL ID and choose “Find my details” first.', 'err'); input.focus(); } }, true);
-  if (!api) { var hint = document.createElement('p'); hint.className = 'wl-wtl-hint'; hint.textContent = 'Prototype: try 100234, 100567 or 100890.'; msg.insertAdjacentElement('afterend', hint); }
 })();

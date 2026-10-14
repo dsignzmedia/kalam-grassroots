@@ -1,6 +1,5 @@
-/* Request a visit — WTL ID first (details come from the registration and are locked), then the visit itself.
-   Connect the real services: window.CFP_WTL_API (GET <api><ID> → {name,mobile,state,constituency,district}) and
-   window.CFP_VISIT_API (POST the form as JSON). Until then the WTL lookup uses 3 DEMO records and nothing is sent. */
+/* Request a visit — WTL ID first (checked through POST /api/verify-memberid; details come from the registration and are locked), then the visit itself.
+   The request is stored in the Google Sheet tab "Visit Requests" via CFP.send (js/sheet-submit.js). */
 (function () {
   'use strict';
   var form = document.getElementById('visit-form');
@@ -9,20 +8,28 @@
   var msg = box.querySelector('[data-wtl-msg]'), found = box.querySelector('[data-wtl-found]'), after = form.querySelector('[data-wtl-after]');
   var change = box.querySelector('[data-wtl-change]'), realMobile = document.getElementById('wl-mobile-real');
   var F = { name: 'wl-name', mobile: 'wl-mobile', state: 'wl-state', constituency: 'wl-constituency', district: 'wl-district' };
-  var verified = false, busy = false, api = window.CFP_WTL_API || '';
-  var DEMO = {
-    'WTL-26-100234': { name: 'Anitha Selvaraj', mobile: '9894012345', state: 'Tamil Nadu', constituency: 'Sulur', district: 'Coimbatore' },
-    'WTL-26-100567': { name: 'Murugan Palanisamy', mobile: '9791056789', state: 'Tamil Nadu', constituency: 'Avinashi', district: 'Tiruppur' },
-    'WTL-26-100890': { name: 'Fathima Begum', mobile: '9600078901', state: 'Tamil Nadu', constituency: 'Coimbatore South', district: 'Coimbatore' }
-  };
+  var verified = false, busy = false, api = window.CFP_WTL_API || '/api/verify-memberid';
   var PREFIX = 'WTL-26-';
   /* the field holds only the part after WTL-26-; a pasted full ID is trimmed to match */
-  function norm(v) { return String(v || '').toUpperCase().replace(/\s+/g, '').replace(/^WTL-?(26)?-?/, '').replace(/[^A-Z0-9]/g, ''); }
+  function norm(v) { return String(v || '').toUpperCase().replace(/\s+/g, '').replace(/^WTL-?(26)?-?/, '').replace(/\D/g, ''); }
   function mask(m) { var d = String(m).replace(/\D/g, '').slice(-10); return d ? '+91 ' + d.slice(0, 2) + '••• ••' + d.slice(-3) : ''; }
   function say(t, k) { msg.textContent = t || ''; msg.className = 'wl-wtl-msg' + (k ? ' is-' + k : ''); }
+  /* Real check: POST /api/verify-memberid (worker.js → Catalyst), same as the We The Leaders site.
+     Resolves to { name, mobile, state, constituency, district } or null when the ID is unknown. */
   function lookup(id) {
-    if (api) return fetch(api + encodeURIComponent(id), { headers: { Accept: 'application/json' } }).then(function (r) { return r.ok ? r.json() : null; });
-    return new Promise(function (res) { setTimeout(function () { res(DEMO[id] || null); }, 600); });
+    return fetch(api, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ member_id: id.replace(/\D/g, '') }) })
+      .then(function (r) { return r.json().catch(function () { return null; }).then(function (d) { if (r.status >= 500 || !d) throw new Error('service'); return d; }); })
+      .then(function (d) {
+        if (!d.success) return null;
+        var m = d.data || d;
+        return {
+          name: d.display_name || m.display_name || m.name || '',
+          mobile: m.mobile || m.phone || '',
+          state: m.state || m.state_name || '',
+          constituency: m.constituency || m.constituency_name || '',
+          district: m.district || m.district_name || ''
+        };
+      });
   }
   function setVerified(rec) {
     verified = true; document.getElementById('wl-wtl-full').value = PREFIX + norm(input.value);
@@ -40,7 +47,7 @@
   function find() {
     if (busy || verified) return;
     var suffix = norm(input.value); input.value = suffix; var id = PREFIX + suffix;
-    if (!/^[A-Z0-9]{4,16}$/.test(suffix)) { say('Please enter the rest of your WTL ID, for example 100234.', 'err'); input.focus(); return; }
+    if (!/^\d{4,12}$/.test(suffix)) { say('Please enter the rest of your WTL ID, for example 100234.', 'err'); input.focus(); return; }
     busy = true; btn.disabled = true; btn.textContent = 'Finding…'; say('', '');
     lookup(id).then(function (rec) {
       if (rec) setVerified(rec); else { say('We couldn’t find that WTL ID. Check it and try again, or write to hello@centreforpolity.org.', 'err'); input.focus(); }
@@ -68,13 +75,14 @@
     if (!verified) { say('Enter your WTL ID and choose “Find my details” first.', 'err'); input.focus(); return; }
     if (urgent.checked && !why.value.trim()) { why.setCustomValidity('Please tell us why this is urgent.'); why.reportValidity(); why.addEventListener('input', function () { why.setCustomValidity(''); }, { once: true }); return; }
     if (!form.reportValidity()) return;
-    var data = {}; new FormData(form).forEach(function (v, k) { data[k] = v; });
+    var submitBtn = form.querySelector('[type="submit"]'), label = submitBtn.textContent; submitBtn.disabled = true; submitBtn.textContent = 'Sending…';
     var done = document.getElementById('vr-done'), txt = document.getElementById('vr-done-text'), email = document.getElementById('vr-email').value;
     var go = function () {
       txt.textContent = (urgent.checked ? 'We have marked this as urgent. ' : '') + 'We will book a slot for you based on availability and reply to ' + email + '.';
       form.hidden = true; document.querySelector('.vr-notice').hidden = true; done.hidden = false; done.focus(); done.scrollIntoView({ behavior: 'smooth', block: 'center' });
     };
-    if (window.CFP_VISIT_API) fetch(window.CFP_VISIT_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then(go).catch(function () { say('We could not send your request. Please try again.', 'err'); });
-    else go();
+    CFP.collectFormData(form).then(function (data) { return CFP.send('Visit Requests', data); })
+      .then(go)
+      .catch(function () { submitBtn.disabled = false; submitBtn.textContent = label; say('We could not send your request. Please try again.', 'err'); });
   });
 })();
