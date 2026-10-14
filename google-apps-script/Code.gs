@@ -1,4 +1,10 @@
 // === CONFIG ===
+/* Uploaded files (resume, cover letter ...) are stored in this Drive folder (the ID is the part after /folders/ in its URL).
+   Leave it '' to auto-create one folder per form named "<form> Documents" instead. */
+var DOCS_FOLDER_ID = '1SME8gYgg2znnAut8nR9Q0wOrFonKR5ea';
+var MAX_FILE_BYTES = 5 * 1024 * 1024; // 5 MB, same limit as the page
+var ALLOWED_FILE_EXT = ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png'];
+var FILE_FIELDS = ['resume', 'cover_letter']; // columns that hold an uploaded file; shows "Not provided" when empty
 var WTL_SHEET_ID = '1JMy2TEWa57odJrfr0MWyjKhz7M8UwRcZMO_BzEKOwso'; // a DIFFERENT spreadsheet than the one this script is bound to
 var WTL_TAB_NAME = 'Registrations'; // tab with header row: WTL ID | Name | Mobile | State | Constituency | District
 
@@ -42,6 +48,15 @@ function doPost(e) {
 
 function appendRow(formName, data) {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
+
+  /* Save uploaded files FIRST. If any file is refused or fails, this throws and NO row is written,
+     so a submission is never recorded with a missing document. */
+  var fileLinks = {};
+  Object.keys(data).forEach(function (k) {
+    var v = data[k];
+    if (v && typeof v === 'object' && v.base64) fileLinks[k] = saveFileToDrive(v, k, formName, data);
+  });
+
   var sheet = ss.getSheetByName(formName);
   if (!sheet) { sheet = ss.insertSheet(formName); sheet.appendRow(['Timestamp']); }
   var header = sheet.getRange(1, 1, 1, Math.max(sheet.getLastColumn(), 1)).getValues()[0];
@@ -50,11 +65,10 @@ function appendRow(formName, data) {
   });
   var row = header.map(function (h) {
     if (h === 'Timestamp') return new Date();
+    if (fileLinks[h]) return fileLinks[h];
     var v = data[h];
-    if (v && typeof v === 'object' && v.base64) {
-      try { return saveFileToDrive(v); } catch (err) { return 'upload failed: ' + err; }
-    }
-    return v !== undefined ? safeCell(v) : '';
+    if (v === undefined || v === '' || v === null) return FILE_FIELDS.indexOf(h) !== -1 ? 'Not provided' : '';
+    return safeCell(v);
   });
   sheet.appendRow(row);
 }
@@ -66,34 +80,29 @@ function safeCell(v) {
   return v;
 }
 
-function saveFileToDrive(fileObj) {
-  var bytes = Utilities.base64Decode(fileObj.base64);
-  var blob = Utilities.newBlob(bytes, fileObj.mimeType || 'application/octet-stream', fileObj.filename || 'upload');
-  var folder = DriveApp.getRootFolder(); // consider creating/using a dedicated folder by ID instead
-  var file = folder.createFile(blob);
-  return file.getUrl();
+function cleanPart(v, fallback) {
+  var t = String(v || '').replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 40);
+  return t || fallback;
 }
 
-function findWTL(id) {
-  var ss = SpreadsheetApp.openById(WTL_SHEET_ID);
-  var sheet = ss.getSheetByName(WTL_TAB_NAME);
-  if (!sheet) return null; // no Registrations tab: report "not found" instead of crashing
-  var values = sheet.getDataRange().getValues();
-  var header = values[0].map(function (h) { return String(h).trim().toLowerCase(); });
-  var idCol = header.indexOf('wtl id');
-  if (idCol === -1) return null;
-  for (var i = 1; i < values.length; i++) {
-    if (String(values[i][idCol]).toUpperCase().trim() === id) {
-      return {
-        name: values[i][header.indexOf('name')],
-        mobile: values[i][header.indexOf('mobile')],
-        state: values[i][header.indexOf('state')],
-        constituency: values[i][header.indexOf('constituency')],
-        district: values[i][header.indexOf('district')]
-      };
-    }
-  }
-  return null;
+function docsFolder(formName) {
+  if (DOCS_FOLDER_ID) return DriveApp.getFolderById(DOCS_FOLDER_ID);
+  var name = formName + ' Documents';
+  var it = DriveApp.getFoldersByName(name);
+  return it.hasNext() ? it.next() : DriveApp.createFolder(name);
+}
+
+/* Validates the file (type and size are checked here, not only in the browser), stores it in the
+   documents folder as  <Form>_<WTL ID>_<Name>_<field>.<ext>  and returns its Drive link. */
+function saveFileToDrive(fileObj, field, formName, data) {
+  var original = String(fileObj.filename || 'upload');
+  var ext = (original.split('.').pop() || '').toLowerCase();
+  if (ALLOWED_FILE_EXT.indexOf(ext) === -1) throw new Error('File type not allowed for ' + field + ' (use PDF, DOC, DOCX, JPG or PNG)');
+  var bytes = Utilities.base64Decode(fileObj.base64);
+  if (bytes.length > MAX_FILE_BYTES) throw new Error('File too large for ' + field + ' (max 5 MB)');
+  var name = cleanPart(formName, 'form') + '_' + cleanPart(data.wtl_id, 'no-id') + '_' + cleanPart(data.name, 'unknown') + '_' + field + '.' + ext;
+  var blob = Utilities.newBlob(bytes, fileObj.mimeType || 'application/octet-stream', name);
+  return docsFolder(formName).createFile(blob).getUrl();
 }
 
 function jsonOut(obj) {
