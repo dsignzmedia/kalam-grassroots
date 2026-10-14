@@ -79,7 +79,7 @@ p{margin:0 0 16px}
 .section-label::before{content:"";width:18px;height:1px;background:currentColor}
 .cta-row{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:28px}
 .hint{color:var(--muted);font-size:13px;line-height:1.5}
-.hero-home{min-height:560px!important;display:flex!important;align-items:center!important;background:#0a0e14!important;background-image:linear-gradient(180deg,rgba(8,12,18,.6),rgba(8,12,18,.72)),url('../assets/images/Home%20Page%20banner.png')!important;background-size:cover!important;background-position:center!important}
+.hero-home{min-height:560px!important;display:flex!important;align-items:center!important;background:#0a0e14!important;background-image:linear-gradient(180deg,rgba(8,12,18,.28),rgba(8,12,18,.4)),url('../assets/images/Home%20Page%20banner.png')!important;background-size:cover!important;background-position:center!important}
 .hero-home::after{display:none}
 .hero-layout{display:block}
 .hero-copy{max-width:1180px;margin:0 auto;padding:42px 0 34px;text-align:center}
