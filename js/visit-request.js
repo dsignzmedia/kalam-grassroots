@@ -94,7 +94,7 @@
       txt.textContent = (urgent.checked ? 'We have marked this as urgent. ' : '') + 'We will book a slot for you based on availability and reply to ' + email + '.';
       form.hidden = true; document.querySelector('.vr-notice').hidden = true; done.hidden = false; done.focus(); done.scrollIntoView({ behavior: 'smooth', block: 'center' });
     };
-    CFP.collectFormData(form).then(function (data) { return CFP.send('Visit Requests', data); })
+    CFP.collectFormData(form).then(function (data) { data.urgent = urgent.checked ? 'Yes' : 'No'; if (!urgent.checked) data.urgent_reason = ''; return CFP.sendChecked('Visit Requests', data); })
       .then(go)
       .catch(function () { submitBtn.disabled = false; submitBtn.textContent = label; say('We could not send your request. Please try again.', 'err'); });
   });

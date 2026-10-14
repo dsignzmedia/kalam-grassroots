@@ -94,12 +94,19 @@
   form.addEventListener('submit', function (event) {
     event.preventDefault();
     if (!form.reportValidity()) return;
-    var firstName = (document.getElementById('wl-name').value || '').trim().split(/\s+/)[0];
-    document.getElementById('wl-complete-name').textContent = firstName ? 'Thank you, ' + firstName : 'Thank you';
-    if (window.CFP && CFP.collectFormData) {
-      CFP.collectFormData(form).then(function (data) { CFP.send('Waitlist Assessment', data); }).catch(function () {});
-    }
-    showScreen('complete');
+    var btn = form.querySelector('[data-wtl-submit]'), label = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+    CFP.collectFormData(form).then(function (data) { return CFP.sendChecked('Waitlist Assessment', data); })
+      .then(function () {
+        var firstName = (document.getElementById('wl-name').value || '').trim().split(/\s+/)[0];
+        document.getElementById('wl-complete-name').textContent = firstName ? 'Thank you, ' + firstName : 'Thank you';
+        try { sessionStorage.removeItem('cfp_waitlist_draft'); } catch (error) {}
+        showScreen('complete');
+      })
+      .catch(function () {
+        if (btn) { btn.disabled = false; btn.textContent = label; }
+        saveStatus.textContent = 'We could not send your answers. Please check your connection and try again.';
+      });
   });
 
   document.addEventListener('keydown', function (event) {

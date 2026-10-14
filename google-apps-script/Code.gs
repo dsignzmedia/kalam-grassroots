@@ -1,22 +1,36 @@
-// === CONFIG — fill in before deploying ===
+// === CONFIG ===
 var WTL_SHEET_ID = '1JMy2TEWa57odJrfr0MWyjKhz7M8UwRcZMO_BzEKOwso'; // a DIFFERENT spreadsheet than the one this script is bound to
 var WTL_TAB_NAME = 'Registrations'; // tab with header row: WTL ID | Name | Mobile | State | Constituency | District
 
+/* GET  <exec>                      -> health check, shows {"ok":true,...}
+   GET  <exec>?action=lookupWTL&id= -> old WTL lookup from the Registrations sheet (kept for compatibility) */
 function doGet(e) {
-  var action = (e.parameter.action || 'lookupWTL');
+  var action = String((e && e.parameter && e.parameter.action) || 'ping');
   if (action === 'lookupWTL') {
     var id = String(e.parameter.id || '').toUpperCase().trim();
-    var rec = findWTL(id);
+    var rec = null;
+    try { rec = findWTL(id); } catch (err) { return jsonOut({ found: false, error: String(err) }); }
     return jsonOut(rec ? Object.assign({ found: true }, rec) : { found: false });
   }
+  if (action === 'ping') return jsonOut({ ok: true, service: 'kalam-grassroots form storage' });
   return jsonOut({ error: 'unknown action' });
 }
 
+/* POST { form: "<tab name>", data: { field: value, ... } } -> one new row in that tab */
 function doPost(e) {
   var body = {};
   try { body = JSON.parse(e.postData.contents); } catch (err) { return jsonOut({ ok: false, error: 'bad json' }); }
   var formName = String(body.form || e.parameter.form || 'Untitled').replace(/[^a-zA-Z0-9 _-]/g, '').slice(0, 90);
-  appendRow(formName, body.data || {});
+  /* one write at a time, so two simultaneous submissions can't clash over the header row */
+  var lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(20000);
+    appendRow(formName, body.data || {});
+  } catch (err) {
+    return jsonOut({ ok: false, error: String(err) });
+  } finally {
+    try { lock.releaseLock(); } catch (e2) {}
+  }
   return jsonOut({ ok: true });
 }
 
@@ -34,9 +48,16 @@ function appendRow(formName, data) {
     if (v && typeof v === 'object' && v.base64) {
       try { return saveFileToDrive(v); } catch (err) { return 'upload failed: ' + err; }
     }
-    return v !== undefined ? v : '';
+    return v !== undefined ? safeCell(v) : '';
   });
   sheet.appendRow(row);
+}
+
+/* Text that starts with = + - @ would be run as a formula by Sheets (and could be abused);
+   a leading apostrophe stores it as plain text instead. */
+function safeCell(v) {
+  if (typeof v === 'string' && /^[=+\-@]/.test(v)) return "'" + v;
+  return v;
 }
 
 function saveFileToDrive(fileObj) {
@@ -50,9 +71,11 @@ function saveFileToDrive(fileObj) {
 function findWTL(id) {
   var ss = SpreadsheetApp.openById(WTL_SHEET_ID);
   var sheet = ss.getSheetByName(WTL_TAB_NAME);
+  if (!sheet) return null; // no Registrations tab: report "not found" instead of crashing
   var values = sheet.getDataRange().getValues();
   var header = values[0].map(function (h) { return String(h).trim().toLowerCase(); });
   var idCol = header.indexOf('wtl id');
+  if (idCol === -1) return null;
   for (var i = 1; i < values.length; i++) {
     if (String(values[i][idCol]).toUpperCase().trim() === id) {
       return {
