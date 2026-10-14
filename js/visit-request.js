@@ -63,7 +63,7 @@
     if (!/^\d{4,12}$/.test(suffix)) { say('Please enter the rest of your WTL ID, for example 100234.', 'err'); input.focus(); return; }
     busy = true; btn.disabled = true; btn.textContent = 'Finding…'; say('', '');
     lookup(id).then(function (rec) {
-      if (rec) setVerified(rec); else { say('We couldn’t find that WTL ID. Check it and try again, or write to hello@centreforpolity.org.', 'err'); input.focus(); }
+      if (rec) setVerified(rec); else { say('We couldn’t find that WTL ID. Check it and try again, or write to hello@kalamgrassroots.org.', 'err'); input.focus(); }
     }).catch(function () { say('We couldn’t reach the registration service. Please try again in a moment.', 'err'); })
       .then(function () { busy = false; btn.disabled = false; btn.textContent = 'Find my details'; });
   }
