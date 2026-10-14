@@ -1,8 +1,10 @@
 /* Site switches. Set to true to show the item again.
    - CFP_SHOW_LANG_SWITCHER: the "தமிழ் / EN" language switcher in the header. While false the site always shows English.
-   - CFP_SHOW_LAUNCH_EVENT_LINK: the "View launch event →" button in the top announcement bar. */
+   - CFP_SHOW_LAUNCH_EVENT_LINK: the "View launch event →" button in the top announcement bar.
+   - CFP_SHOW_LAUNCH_POPUP: the launch-event pop-up on the home page (js/launch-popup.js). */
 window.CFP_SHOW_LANG_SWITCHER = false;
 window.CFP_SHOW_LAUNCH_EVENT_LINK = false;
+window.CFP_SHOW_LAUNCH_POPUP = false;           // the "Be there when the Centre begins" launch-event pop-up on the home page
 
 (function () {
   var mobileMenu = window.matchMedia('(max-width: 1100px)');

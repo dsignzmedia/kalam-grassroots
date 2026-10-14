@@ -3691,3 +3691,7 @@ html:not(.lang-on) .lang-toggle,html:not(.lang-on) .lang-wrap{display:none!impor
 /* the step cards now follow the bridge directly, so the old big gap under the bridge is no longer needed */
 .bridge-journey{margin-bottom:34px}
 @media(max-width:1000px){.bridge-journey{margin-bottom:30px}}
+
+/* Top network tabs (We The Leaders | APJ Centre for Polity): span the full width and start at the far left edge,
+   instead of sitting inside the centered page container. */
+.brand-tabs .wrap{width:100%;max-width:none;margin:0;padding:0}

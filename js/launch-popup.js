@@ -1,5 +1,7 @@
 /* Launch event pop-up — shown once per visit, on the home page */
 (function () {
+  /* Switched off: show it only if window.CFP_SHOW_LAUNCH_POPUP === true (set in js/navigation.js). */
+  if (window.CFP_SHOW_LAUNCH_POPUP !== true) return;
   var script = document.currentScript, base = script && script.src ? script.src.replace(/js\/launch-popup\.js.*$/, '') : '';
   if (!base || !document.createElement('dialog').showModal) return;
   if (!document.querySelector('.hero-home')) return;   /* home page only */
