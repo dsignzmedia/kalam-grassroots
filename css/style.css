@@ -3625,3 +3625,8 @@ main>section.vr-main{padding-top:36px!important;background:#fff!important}
    .gr-flag-copy, so the card's paragraph rule (.gr-flag-copy>p: 17px, grey, 20px margin) beat the pill's own style.
    On phones that made it a big grey two-line pill with the "·" stranded at the end of a line. Restore the pill. */
 .gr-flag-copy>p.gr-tag{margin:0 0 16px;color:var(--gr-acc);font-size:11.5px;line-height:1.4;letter-spacing:.09em}
+
+/* Institute photo gallery, 2-column layouts (tablet + phone): with "Public conversation hall" spanning both columns,
+   "Library & study hall" was left alone in the left column with an empty gap beside it. Let the hall take one column
+   so the photos pair up (Library | Hall) and every row is full. */
+@media(max-width:1023px){.ins-t5{grid-column:span 1}}
