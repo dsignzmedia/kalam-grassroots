@@ -18,7 +18,7 @@
      Resolves to { name, mobile, state, constituency, district } or null when the ID is unknown. */
   function lookup(id) {
     return fetch(api, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ member_id: id.replace(/\D/g, '') }) })
-      .then(function (r) { return r.json().catch(function () { return null; }).then(function (d) { if (r.status >= 500 || !d) throw new Error('service'); return d; }); })
+      .then(function (r) { return r.json().catch(function () { return null; }).then(function (d) { if (!d || r.status >= 500 || r.status === 401 || r.status === 403 || r.status === 429) throw new Error('service'); return d; }); })
       .then(function (d) {
         if (!d.success) return null;
         var m = d.data || d;
