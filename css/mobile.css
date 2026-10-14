@@ -62,7 +62,7 @@ main section>.wrap>p,main .subhead,main .lead{font-size:16px;line-height:1.55}
 /* home: tighter */
 .hero-home{padding-top:36px!important;padding-bottom:36px!important}
 .shift-head{gap:18px!important;margin-bottom:34px!important}
-.bridge-journey{margin-bottom:44px!important}
+.bridge-journey{margin-bottom:30px!important}
 /* level pages + action plan */
 /* hero collage: same design as desktop, scaled down (three photos + the "Level N / ..." box), not one lone photo */
 .gr-hero-media{height:310px!important;gap:10px!important;grid-template-columns:1.15fr .85fr!important;grid-template-rows:1fr 1fr!important}
@@ -89,7 +89,7 @@ main section>.wrap>p,main .subhead,main .lead{font-size:16px;line-height:1.55}
 .gloss-entry dd{padding:0 0 14px!important;font-size:14.5px;line-height:1.55}
 .gloss-index{overflow-x:auto;white-space:nowrap;scrollbar-width:none;margin:0 calc(var(--m-gut)*-1);padding:8px var(--m-gut)}
 .shift-section .m-more,.pf-hero .m-more{color:#c8f56c;border-bottom-color:rgba(200,245,108,.4)}
-.bridge-crossing{min-height:360px!important}.bridge-art{bottom:96px!important}
+.bridge-crossing{min-height:390px!important}.bridge-art{bottom:124px!important}
 .bridge-name{top:0!important}
 main section .wrap>.cta-row{gap:10px}
 /* third pass */
