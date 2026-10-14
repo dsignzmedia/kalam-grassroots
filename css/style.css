@@ -1279,13 +1279,14 @@ main>section.lib-filters{padding:22px 0;background:#fff;border-bottom:1px solid 
 .lib-filter-meta{margin:14px 0 0;color:var(--muted);font-size:13px}
 .lib-empty{margin:28px 0 0;padding:24px;color:var(--ink-secondary);background:var(--canvas-soft);border:1px solid var(--hairline);border-radius:var(--radius-lg);text-align:center}
 
-/* Shared empty state — Collections, Resources, Toolkits before content ships */
-.empty-state{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:480px;margin:32px auto 0;padding:64px 32px;color:var(--ink-secondary);text-align:center;background:var(--canvas-soft);border:1px solid var(--hairline);border-radius:var(--radius-lg)}
-.empty-state-icon{display:grid;place-items:center;width:56px;height:56px;color:var(--primary);background:var(--canvas);border:1px solid var(--hairline);border-radius:50%}
-.empty-state-icon svg{width:26px;height:26px}
-.empty-state h3{margin:0;color:var(--ink);font-size:21px;font-weight:500;letter-spacing:-.3px}
-.empty-state p{margin:0;font-size:15px;line-height:1.6}
-.empty-state .btn,.empty-state .btn-secondary{margin-top:6px}
+/* Shared empty state — Collections, Resources, Toolkits before content ships (distinct from the full-page .empty-state pattern) */
+.content-empty{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:480px;margin:32px auto 0;padding:48px 32px;color:var(--ink-secondary);text-align:center;background:var(--canvas-soft);border:1px solid var(--hairline);border-radius:var(--radius-lg)}
+.content-empty-icon{display:grid;place-items:center;width:56px;height:56px;color:var(--primary);background:var(--canvas);border:1px solid var(--hairline);border-radius:50%}
+.content-empty-icon svg{width:26px;height:26px}
+.content-empty-image{width:min(132px,40vw);height:auto;display:block}
+.content-empty h3{margin:0;color:var(--ink);font-size:21px;font-weight:500;letter-spacing:-.3px}
+.content-empty p{margin:0;font-size:15px;line-height:1.6}
+.content-empty .btn,.content-empty .btn-secondary{margin-top:6px}
 main>section.library-results-section{padding-top:56px!important}
 main>section.lib-toolkits{padding:96px 0;color:#fff;background:var(--navy)!important}
 .lib-toolkits-inner{display:grid;grid-template-columns:1.2fr .8fr;gap:64px;align-items:center}
