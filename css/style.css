@@ -3630,3 +3630,9 @@ main>section.vr-main{padding-top:36px!important;background:#fff!important}
    "Library & study hall" was left alone in the left column with an empty gap beside it. Let the hall take one column
    so the photos pair up (Library | Hall) and every row is full. */
 @media(max-width:1023px){.ins-t5{grid-column:span 1}}
+
+/* Why join, "Serious about service": the convention photo now sits after the card grid instead of inside it, so on
+   phones the three cards swipe and the photo shows below them (it used to become a 4th slide of the swipe).
+   Same spacing under the cards as before on desktop. */
+.wj-community-image{margin-top:24px}
+@media(max-width:720px){.wj-community-image{min-height:240px;margin-top:16px}}
