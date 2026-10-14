@@ -3613,3 +3613,10 @@ main>section.vr-main{padding-top:36px!important;background:#fff!important}
    heading inside it, so the whole card (label, pill, dot on its top edge) shows below the sticky header
    instead of being scrolled up underneath it. */
 .jr-pcard[id]{scroll-margin-top:150px}
+
+/* "Where we come from" card (home bridge section): give the heading, the big count and the description room.
+   Before, the count sat 14px under "We The Leaders" and the description 6px under the count. */
+.bridge-bank h3{margin-bottom:22px}
+.bridge-start p strong{margin-bottom:14px}
+.bridge-bank p{line-height:1.65}
+@media(max-width:1000px){.bridge-bank h3{margin-top:34px;margin-bottom:20px}.bridge-start p strong{margin-bottom:12px}}
