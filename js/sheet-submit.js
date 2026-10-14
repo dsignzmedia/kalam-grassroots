@@ -12,6 +12,20 @@ CFP.send = function (formName, data) {
   });
 };
 
+/* Like CFP.send, but resolves only when the Apps Script confirms the row was written
+   ({ ok: true }). Rejects on a network error, a non-200 reply or { ok: false }, so a page
+   can show an error instead of a false "thank you". */
+CFP.sendChecked = function (formName, data) {
+  if (!window.CFP_SHEET_API) return Promise.reject(new Error('sheet API not configured'));
+  return CFP.send(formName, data).then(function (res) {
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }).then(function (json) {
+    if (!json || json.ok !== true) throw new Error((json && json.error) || 'not saved');
+    return json;
+  });
+};
+
 /* Collects a form's fields into a plain object. File inputs (small files only —
    resumes/photos, not large attachments) are base64-encoded as
    { filename, mimeType, base64 } so they can be forwarded as JSON. */
