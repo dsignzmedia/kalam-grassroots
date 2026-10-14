@@ -3650,3 +3650,35 @@ main>section.vr-main{padding-top:36px!important;background:#fff!important}
 
 /* Language switcher hidden (see CFP_SHOW_LANG_SWITCHER in js/navigation.js). Hiding it in CSS means it never flashes on load. */
 html:not(.lang-on) .lang-toggle,html:not(.lang-on) .lang-wrap{display:none!important}
+
+/* Home bridge section — content update (APJ website content update, slide 4):
+   "Where we come from" now has a tag line instead of the count, the four journey stops carry a short verb,
+   and the four bridge steps (Identify / Develop / Deploy / Support) sit in a row under the bridge. */
+.bridge-start .bridge-tags{margin:0 0 14px;padding-bottom:14px;color:rgba(255,255,255,.82);border-bottom:1px solid rgba(255,255,255,.14);font-size:14px;font-weight:500;line-height:1.5}
+.bridge-deck li{display:flex;flex-direction:column;gap:3px;line-height:1.2}
+.bridge-deck li b{font-weight:700}
+.bridge-deck li small{font-size:10px;font-weight:400;letter-spacing:.02em;text-transform:none;opacity:.8}
+.bridge-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:30px 0 64px;padding:0;list-style:none}
+.bridge-steps li{padding:24px 22px;color:#fff;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.11);border-radius:18px}
+.bridge-step-n{display:inline-grid;place-items:center;width:34px;height:34px;margin-bottom:16px;color:#0d1020;background:#ffd166;border-radius:50%;font-size:12px;font-weight:700}
+.bridge-steps li:nth-child(2) .bridge-step-n{background:#8ecae6}
+.bridge-steps li:nth-child(3) .bridge-step-n{background:#b7e4a0}
+.bridge-steps li:nth-child(4) .bridge-step-n{background:#c3b1ff}
+.bridge-steps strong{display:block;margin-bottom:8px;font-size:17px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.bridge-steps p{margin:0;color:rgba(255,255,255,.68);font-size:14px;line-height:1.55}
+@media(max-width:1000px){.bridge-steps{grid-template-columns:repeat(2,minmax(0,1fr));margin:26px 0 48px}}
+@media(max-width:600px){.bridge-steps{grid-template-columns:1fr;gap:10px}.bridge-steps li{padding:18px 18px}.bridge-step-n{margin-bottom:12px}}
+
+/* About page — vision / mission cards: the statement itself is now the main text (APJ website content update, slide 10) */
+@media(min-width:1001px){.about-purpose-card{grid-template-columns:72px minmax(0,1fr)}}
+.about-purpose-body .section-label{margin:0 0 14px}
+.about-purpose-statement{position:relative;z-index:1;max-width:760px;margin:0;color:#4a5578;font-size:clamp(19px,1.9vw,25px);font-weight:400;line-height:1.5;letter-spacing:-.2px}
+@media(max-width:720px){.about-purpose-statement{font-size:17px}}
+/* the journey labels are now two lines tall (name + verb), so lift the bridge drawing clear of them */
+.bridge-art{bottom:96px}
+.bridge-crossing{min-height:500px}
+@media(max-width:1000px){.bridge-crossing{min-height:450px}}
+@media(max-width:600px){.bridge-art{bottom:150px}.bridge-crossing{min-height:430px}.bridge-deck li{padding:9px 6px}}
+/* the step cards now follow the bridge directly, so the old big gap under the bridge is no longer needed */
+.bridge-journey{margin-bottom:34px}
+@media(max-width:1000px){.bridge-journey{margin-bottom:30px}}
