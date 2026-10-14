@@ -23,6 +23,15 @@ img{max-width:100%;display:block}
 .skip-link{position:fixed;left:16px;top:-80px;z-index:200;padding:10px 16px;color:#fff;background:var(--navy);border-radius:var(--pill);text-decoration:none;transition:top .2s ease}
 .skip-link:focus{top:16px}
 
+/* Brand tabs — switch between We The Leaders and this site */
+.brand-tabs{background:var(--navy)}
+.brand-tabs .wrap{display:flex;gap:4px}
+.brand-tab{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;color:rgba(255,255,255,.65);font-size:13px;font-weight:600;text-decoration:none;border-radius:8px 8px 0 0;background:transparent;transition:background .2s ease,color .2s ease}
+.brand-tab img{width:20px;height:16px;object-fit:contain}
+.brand-tab:hover,.brand-tab:focus-visible{color:#fff}
+.brand-tab.is-current{color:var(--ink);background:var(--canvas-soft)}
+@media(max-width:480px){.brand-tab{padding:8px 12px;font-size:12px}}
+
 /* Utility and global navigation */
 .utility-bar{min-height:32px;color:var(--muted);background:var(--canvas-soft);border-bottom:1px solid rgba(227,232,238,.7);font-size:12px;font-weight:400}
 .utility-bar .wrap{min-height:32px;display:flex;justify-content:flex-end;align-items:center;gap:20px}
