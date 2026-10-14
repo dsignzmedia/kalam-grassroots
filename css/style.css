@@ -3594,3 +3594,45 @@ main>section.vr-main{padding-top:36px!important;background:#fff!important}
 .pf-card input[type=date],.pf-card input[type=number]{width:100%;min-height:48px;padding:12px 14px;color:var(--ink);background:var(--canvas);border:1px solid var(--hairline-input)!important;border-radius:10px;font:300 14px/1.4 var(--font);transition:border-color .15s ease,box-shadow .15s ease}
 .pf-card input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.6}
 .pf-card input[type=date]::-webkit-calendar-picker-indicator:hover{opacity:1}
+
+/* Journey programme cards (programmes.html)
+   1) The connector dot sits half outside the card's top edge. The card had overflow:hidden (only there to clip the
+      "shine" effect), which cut the dot in half. The card no longer clips; the shine is now a gradient that lives
+      inside the card's own box (same look, rounded to the card), so nothing is cut off.
+   2) Give the "4 weeks · 64 hours" line room: a gap under the Classroom pill and a little more before the heading. */
+.jr-pcard{overflow:visible}
+.jr-pcard::after{inset:0;left:0;width:auto;border-radius:inherit;transform:none;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.2) 50%,transparent 58%) no-repeat;background-size:250% 100%;background-position:130% 0;opacity:0;animation:jr-card-sheen-x 6.4s ease-in-out infinite}
+@keyframes jr-card-sheen-x{0%,68%{background-position:130% 0;opacity:0}73%{opacity:1}88%{background-position:-30% 0;opacity:.75}89%,100%{background-position:-30% 0;opacity:0}}
+.jr-pcard .akf-format{margin-bottom:4px}
+.jr-pcard>div{padding-top:20px}
+.jr-pcard div>p{margin:0 0 12px}
+.jr-pcard h2{margin-bottom:18px}
+@media(prefers-reduced-motion:reduce){.jr-pcard::after{animation:none}}
+
+/* Links to a programme (#jr-p1 / #jr-p2 / #jr-p3, e.g. "Back to programme 1") now land on the CARD, not on the
+   heading inside it, so the whole card (label, pill, dot on its top edge) shows below the sticky header
+   instead of being scrolled up underneath it. */
+.jr-pcard[id]{scroll-margin-top:150px}
+
+/* "Where we come from" card (home bridge section): give the heading, the big count and the description room.
+   Before, the count sat 14px under "We The Leaders" and the description 6px under the count. */
+.bridge-bank h3{margin-bottom:22px}
+.bridge-start p strong{margin-bottom:14px}
+.bridge-bank p{line-height:1.65}
+@media(max-width:1000px){.bridge-bank h3{margin-top:34px;margin-bottom:20px}.bridge-start p strong{margin-bottom:12px}}
+
+/* Level pages, "Programmes on this track" card: the label pill ("Programme 01 · Orientation") is a <p> inside
+   .gr-flag-copy, so the card's paragraph rule (.gr-flag-copy>p: 17px, grey, 20px margin) beat the pill's own style.
+   On phones that made it a big grey two-line pill with the "·" stranded at the end of a line. Restore the pill. */
+.gr-flag-copy>p.gr-tag{margin:0 0 16px;color:var(--gr-acc);font-size:11.5px;line-height:1.4;letter-spacing:.09em}
+
+/* Institute photo gallery, 2-column layouts (tablet + phone): with "Public conversation hall" spanning both columns,
+   "Library & study hall" was left alone in the left column with an empty gap beside it. Let the hall take one column
+   so the photos pair up (Library | Hall) and every row is full. */
+@media(max-width:1023px){.ins-t5{grid-column:span 1}}
+
+/* Why join, "Serious about service": the convention photo now sits after the card grid instead of inside it, so on
+   phones the three cards swipe and the photo shows below them (it used to become a 4th slide of the swipe).
+   Same spacing under the cards as before on desktop. */
+.wj-community-image{margin-top:24px}
+@media(max-width:720px){.wj-community-image{min-height:240px;margin-top:16px}}
