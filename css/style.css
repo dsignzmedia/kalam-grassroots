@@ -3608,3 +3608,8 @@ main>section.vr-main{padding-top:36px!important;background:#fff!important}
 .jr-pcard div>p{margin:0 0 12px}
 .jr-pcard h2{margin-bottom:18px}
 @media(prefers-reduced-motion:reduce){.jr-pcard::after{animation:none}}
+
+/* Links to a programme (#jr-p1 / #jr-p2 / #jr-p3, e.g. "Back to programme 1") now land on the CARD, not on the
+   heading inside it, so the whole card (label, pill, dot on its top edge) shows below the sticky header
+   instead of being scrolled up underneath it. */
+.jr-pcard[id]{scroll-margin-top:150px}
